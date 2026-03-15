@@ -1,0 +1,22 @@
+{
+  "name": "data-processing-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdelinaMoroaca/node-data-processing-CLI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AdelinaMoroaca/node-data-processing-CLI/issues"
+  },
+  "homepage": "https://github.com/AdelinaMoroaca/node-data-processing-CLI#readme"
+}
