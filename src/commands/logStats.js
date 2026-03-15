@@ -24,7 +24,7 @@ module.exports = async function logStats(cwd, opts) {
       while (!found && pos < size) {
         const { bytesRead } = await fd.read(buf, 0, 1024, pos);
         for (let j = 0; j < bytesRead; j++) {
-          if (buf[j] === 10) { // '\n'
+          if (buf[j] === 10) { 
             positions.push(pos + j + 1);
             pos += j + 1;
             found = true;

@@ -1,5 +1,7 @@
+// src/commands/hashCompare.js
 const fs = require('fs');
-const crypto = require('crypto');
+const crypto = require
+('crypto');
 const resolve = require('../utils/pathResolver');
 const { pipeline } = require('stream/promises');
 
@@ -16,14 +18,16 @@ module.exports = async function hashCompare(cwd, opts) {
       fs.createReadStream(inPath),
       hash
     );
-    const digest = hash.digest('hex');
+    const digest = hash.digest('hex').toLowerCase();
+
     const expected = (await fs.promises.readFile(hashPath, 'utf8')).trim().toLowerCase();
-    if (digest.toLowerCase() === expected) {
+
+    if (digest === expected) {
       console.log('OK');
     } else {
       console.log('MISMATCH');
     }
   } catch {
-    return console.log('Operation failed');
+    console.log('Operation failed');
   }
 };
