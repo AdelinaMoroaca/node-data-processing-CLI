@@ -1,4 +1,3 @@
-// src/workers/logWorker.js
 const { parentPort, workerData } = require('worker_threads');
 const fs = require('fs');
 

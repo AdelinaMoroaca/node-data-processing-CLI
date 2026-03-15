@@ -1,4 +1,3 @@
-// src/commands/count.js
 const fs = require('fs');
 const resolve = require('../utils/pathResolver');
 

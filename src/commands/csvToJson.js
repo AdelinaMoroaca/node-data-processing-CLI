@@ -1,4 +1,3 @@
-// src/commands/csvToJson.js
 const fs = require('fs');
 const { pipeline } = require('stream/promises');
 const { Transform } = require('stream');

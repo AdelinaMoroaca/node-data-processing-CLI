@@ -1,4 +1,3 @@
-// src/utils/argParser.js
 module.exports = function parseArgs(args) {
   const opts = {};
   let key = null;

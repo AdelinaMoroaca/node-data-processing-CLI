@@ -1,4 +1,3 @@
-// src/commands/index.js
 module.exports = {
   'csv-to-json': require('./csvToJson'),
   'json-to-csv': require('./jsonToCsv'),

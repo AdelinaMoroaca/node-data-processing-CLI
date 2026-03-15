@@ -1,4 +1,3 @@
-// src/commands/logStats.js
 const fs = require('fs');
 const os = require('os');
 const { Worker } = require('worker_threads');
@@ -16,7 +15,6 @@ module.exports = async function logStats(cwd, opts) {
     const cpus = os.cpus().length;
     const chunkSize = Math.ceil(size / cpus);
 
-    // Find chunk boundaries (on line breaks)
     const positions = [0];
     const fd = await fs.promises.open(inPath, 'r');
     let pos = chunkSize;
@@ -39,7 +37,6 @@ module.exports = async function logStats(cwd, opts) {
     }
     positions.push(size);
 
-    // Spawn workers
     const results = await Promise.all(positions.slice(0, -1).map((start, i) => {
       return new Promise((resolve, reject) => {
         const worker = new Worker(path.join(__dirname, '../workers/logWorker.js'), {
@@ -57,7 +54,6 @@ module.exports = async function logStats(cwd, opts) {
       });
     }));
 
-    // Merge results
     const stats = {
       total: 0,
       levels: {},
@@ -73,7 +69,6 @@ module.exports = async function logStats(cwd, opts) {
       for (const [k, v] of Object.entries(r.pathCounts)) stats.pathCounts[k] = (stats.pathCounts[k] || 0) + v;
       stats.responseTimeSum += r.responseTimeSum;
     }
-    // Top paths
     const topPaths = Object.entries(stats.pathCounts)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5)

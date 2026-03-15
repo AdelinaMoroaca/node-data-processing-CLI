@@ -1,4 +1,3 @@
-// src/repl.js
 const readline = require('readline');
 const navigation = require('./navigation');
 const commands = require('./commands');
@@ -22,16 +21,16 @@ module.exports = async function repl(startDir) {
     }
     try {
       const [cmd, ...args] = input.split(' ');
-      // Navigation commands
+
       if (cmd === 'up') {
-        const newCwd = navigation.up(cwd);
-        cwd = newCwd;
+        cwd = navigation.up(cwd);
         console.log(`You are currently in ${cwd}`);
-      } else if (cmd === 'cd') {
-        const dir = args[0];
-        if (!dir) {
+      }
+      else if (cmd === 'cd') {
+        if (args.length !== 1) {
           console.log('Invalid input');
         } else {
+          const dir = args[0];
           const newCwd = await navigation.cd(cwd, dir);
           if (newCwd) {
             cwd = newCwd;
@@ -40,15 +39,25 @@ module.exports = async function repl(startDir) {
             console.log('Operation failed');
           }
         }
-      } else if (cmd === 'ls') {
-        await navigation.ls(cwd);
       }
-      // Data processing commands
+      else if (cmd === 'ls') {
+        try {
+          await navigation.ls(cwd);
+          console.log(`You are currently in ${cwd}`);
+        } catch {
+          console.log('Operation failed');
+        }
+      }
       else if (commands[cmd]) {
-        const opts = argParser(args);
-        await commands[cmd](cwd, opts);
-        console.log(`You are currently in ${cwd}`);
-      } else {
+        try {
+          const opts = argParser(args);
+          await commands[cmd](cwd, opts);
+          console.log(`You are currently in ${cwd}`);
+        } catch {
+          console.log('Operation failed');
+        }
+      }
+      else {
         console.log('Invalid input');
       }
     } catch (e) {
@@ -57,12 +66,12 @@ module.exports = async function repl(startDir) {
     rl.prompt();
   });
 
-  rl.on('close', () => {
-    // Exit message is handled in main.js after repl resolves
-    process.exit(0);
-  });
-
-  rl.on('SIGINT', () => {
-    rl.close();
+  return new Promise((resolve) => {
+    rl.on('close', () => {
+      resolve();
+    });
+    rl.on('SIGINT', () => {
+      rl.close();
+    });
   });
 };

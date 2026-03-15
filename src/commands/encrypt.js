@@ -1,4 +1,3 @@
-// src/commands/encrypt.js
 const fs = require('fs');
 const crypto = require('crypto');
 const { pipeline } = require('stream/promises');

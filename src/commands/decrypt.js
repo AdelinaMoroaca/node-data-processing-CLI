@@ -1,4 +1,3 @@
-// src/commands/decrypt.js
 const fs = require('fs');
 const crypto = require('crypto');
 const resolve = require('../utils/pathResolver');

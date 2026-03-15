@@ -1,4 +1,3 @@
-// src/commands/jsonToCsv.js
 const fs = require('fs');
 const { pipeline } = require('stream/promises');
 const resolve = require('../utils/pathResolver');
